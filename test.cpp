@@ -1,29 +1,34 @@
 #include <iostream> 
-#include "Lib/Const.h"
 #include "Lib/Converter.h"
+#include "Lib/Const.h"
+#include "Lib/Arithmetic.h"
+#include "Lib/BlockEncryption.h"
+#include "Lib/Modulo.h"
 
 using namespace std;
-
-void SUB(string &s)
-{
-    string res = "";
-    for(int i = 0; i < 8; i++){
-        string bits = "";
-        for (int j = i; j < i + 6; j++){
-            bits += s[j];
-        }
-        int row = (CharToInt(bits[0]) << 1) | CharToInt(bits[5]);
-        int col =  BinToDec(bits.substr(1, bits.length() - 2));
-
-        res += S_box[i][row - 1][col - 1];
-    }
-    s = res;
-}
 
 
 int main()
 {
-    string s = "1001";
-    cout << BinToDec(s);
+    // int a = 283;
+    // int m = 1821;
+    // int n = 241;
+    //  cout << PowerByDownGrading(a, m, n) << endl;
+
+    // int a = 550;
+    // int m = 1759;
+    // cout << "Nghich dao cua " << a << " theo modulo " << m << " : " << ReverseModuloByExtendedEuclid(a, m) << endl;
+    
+    // Giai phuong trinh bang dinh ly phan du trung hoa
+    int m[3] = {19,11,13};
+    int a[3] = {5,5,6};
+    cout << SolveEquationSysByCRT(m, a) << endl;
+    
+    long long n = m[0] * m[1] * m[2];
+    cout << n << endl;
+    for(int i = 0; i < 3; i++)
+    {
+        cout << "nghich dao cua " << m[i] << " theo modulo " << n / m[i] << " la: " << ReverseModuloByExtendedEuclid(m[i], n/m[i]) << endl;
+    }
     return 0;
 }

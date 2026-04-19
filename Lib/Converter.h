@@ -5,8 +5,13 @@
 using namespace std;
 
 int CharToInt(char c){
-    if('0' > c || c > '9') return -1;
     return c - '0';
+}
+
+char IntToChar(int n)
+{
+    if(n < 0 || n > 9) return '-';
+    return char(n + '0');
 }
 
 string IntToString(int n) {
@@ -62,6 +67,16 @@ int HexCharToDec(char c) {
     return 0;
 }
 
+int HexToDec(string hex)
+{
+    int res = 0;
+    for(int i = 0; i < hex.length(); i++)
+    {
+        res = res * 16 + HexCharToDec(hex[i]);
+    }
+    return res;
+}
+
 string DecToBin4Bit(int n) {
     string res = "";
     for (int i = 3; i >= 0; i--) {
@@ -91,6 +106,19 @@ string HexToBin(string hex){
         s += HexCharToBin(hex[i]);
     }
     return s;
+}
+
+string BinToHex(string bin)
+{
+    string hex = "";
+    for(int i = 0; i < bin.length(); i += 4){
+        int val = CharToInt(bin[i]) * 8 + CharToInt(bin[i + 1]) * 4 + CharToInt(bin[i + 2]) * 2 + CharToInt(bin[i + 3]);
+        if (val < 10) {
+            hex += val + '0';
+        }
+        else hex += val - 10 + 'A';
+    }
+    return hex;
 }
 
 int BinToDec(string bin)

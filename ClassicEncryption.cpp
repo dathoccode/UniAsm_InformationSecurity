@@ -1,5 +1,4 @@
 #include <iostream> 
-#include <utility>
 
 using namespace std;
 
@@ -86,7 +85,6 @@ void GenerateMatrix(char matrix[5][5], string word){
 
 }
 
-// find the position of a character in a 5x5 matrix
 void PositionFinding(char matrix[5][5], char character, int &r, int &c){
     for(int i = 0; i < 5; i++){
         for (int j = 0; j < 5; j++){
@@ -97,7 +95,6 @@ void PositionFinding(char matrix[5][5], char character, int &r, int &c){
         }
     }
 }
-
 
 string PlayFairEncrypt(string plainText, string word){
     string cipherText = "";
@@ -136,11 +133,11 @@ string PlayFairEncrypt(string plainText, string word){
 
 int main()
 {
-    string plainText = "ACLEANFASTISB";
+    string plainText = "STILLWATERSRUNDE";
+    int keyInt = 17;
     string key = "EASTO";
-    cout << "Plain Text: " << plainText << endl;
-    string cipherText = PlayFairEncrypt(plainText, key);
-    cout << "Cipher Text: " << cipherText << endl;
+    string cipherText = CaesarEncrypt(plainText, keyInt);
+    
 
     return 0;
 }
