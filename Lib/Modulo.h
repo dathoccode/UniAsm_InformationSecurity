@@ -1,3 +1,4 @@
+#pragma once
 #include <math.h>
 
 int InverseModuloByExtendedEuclid(int a, int n);
@@ -64,13 +65,16 @@ int PowerByDownGrading(int a, int m, int n){
         return -1;
     }
 
+    a %= n;
+    if(a < 0) a += n;
+
     if(m == 0){
         return 1 % n;
     }
 
     int t = log2(m);
-    int p[100];
-    p[0] = a % n;
+    long long p[100];
+    p[0] = a;
     for(int i = 1; i <= t; i++){
         p[i] = p[i-1] * p[i-1] % n;
     }
@@ -118,10 +122,6 @@ int PowerByEuler(int a, int m, int n){
 
     if(a == 0){
         return 0;
-    }
-
-    if(GCD(a, n) != 1){
-        return -1;
     }
 
     int phiN = Phi(n);
@@ -226,9 +226,7 @@ bool IsPrimitiveRoot(int a, int n){
     }
 
     a %= n;
-    if(a < 0){
-        a += n;
-    }
+    if(a < 0) a += n;
 
     if(GCD(a, n) != 1){
         return false;
@@ -248,8 +246,37 @@ bool IsPrimitiveRoot(int a, int n){
     return PowerByDownGrading(a, phiN, n) == 1;
 }
 
+int DiscreteLogarithm(int a, int b, int n){
+    if(n <= 1){
+        return -1;
+    }
+
+    a %= n;
+    b %= n;
+    if(a < 0) a += n;
+    if(b < 0) b += n;
+
+    if(b == 1 % n){
+        return 0;
+    }
+
+    long long current = 1 % n;
+    int limit = Phi(n);
+
+    for(int k = 1; k <= limit; k++){
+        current = (current * a) % n;
+        if(current == b){
+            return k;
+        }
+    }
+
+    return -1;
+}
+
 
 int InverseModuloByExtendedEuclid(int a, int n){
+    if (n <= 0) return -1;
+
     int originalN = n;
     a %= n;
     if(a < 0){
